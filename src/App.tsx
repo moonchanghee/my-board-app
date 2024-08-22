@@ -1,36 +1,17 @@
-// import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
-import { useRecoilState } from 'recoil';
-import { countState } from './recoil/count.recoil';
+import BoardRegist from '../src/pages/board/regist';
+import BoardMain from '../src/pages';
+import BoardDetail from '../src/pages/board/detail';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  //const [count, setCount] = useState(0)
-  const [count, setCount] = useRecoilState(countState);
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route path="/" element={<BoardMain />} />
+        <Route path="/regist" element={<BoardRegist />} />
+        <Route path="/detail/:id" element={<BoardDetail />} />
+      </Routes>
     </>
   );
 }
