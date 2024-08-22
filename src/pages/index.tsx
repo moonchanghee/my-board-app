@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import { FormDataType } from '../types/regist.type';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -25,6 +25,18 @@ export default function BasicTable() {
     navigate(`/detail/${row.number}`);
   };
 
+  const onClickDeleteButton = (
+    event: React.FormEvent<HTMLButtonElement>,
+    rowNumber: number
+  ) => {
+    event.stopPropagation();
+
+    const updatedRows = rows.filter((row) => row.number !== rowNumber);
+    alert('삭제되었습니다');
+    setRows(updatedRows);
+    localStorage.setItem('formData', JSON.stringify(updatedRows));
+  };
+
   return (
     <>
       <Typography component="h1" variant="h5">
@@ -37,6 +49,7 @@ export default function BasicTable() {
               <TableCell style={{ width: '50px' }}>번호</TableCell>
               <TableCell align="right">제목</TableCell>
               <TableCell align="right">내용</TableCell>
+              <TableCell align="center">삭제</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -53,6 +66,18 @@ export default function BasicTable() {
                 </TableCell>
                 <TableCell align="right">{row.title}</TableCell>
                 <TableCell align="right">{row.content}</TableCell>
+                <TableCell align="center">
+                  <Button
+                    style={{ width: '10px' }}
+                    variant="contained"
+                    color="primary"
+                    onClick={(event) =>
+                      onClickDeleteButton(event, row.number as number)
+                    }
+                  >
+                    삭제
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
