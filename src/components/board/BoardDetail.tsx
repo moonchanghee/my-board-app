@@ -41,12 +41,11 @@ export default function BoardDetail({ id }: BoardRegistProps) {
     }));
   };
 
-  const onClickSubmitButton = (event: React.FormEvent<HTMLFormElement>) => {
+  const onClickSubmitButton = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     // 로컬 스토리지에 저장된 데이터 가져오기
-    const savedData = localStorage.getItem('formData');
-    const dataList = savedData ? JSON.parse(savedData) : [];
+    const dataList = getBoardList();
 
     // 동일한 번호가 있는지 확인
     const isNumber = dataList.some(
@@ -64,70 +63,89 @@ export default function BoardDetail({ id }: BoardRegistProps) {
     alert('번호중복 등록 실패했습니다');
   };
 
+  const onClickModifyButton = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const dataList = getBoardList();
+    const updatedData = dataList.map((item: FormDataType) =>
+      item.number === formData.number ? formData : item
+    );
+
+    // 수정된 데이터를 로컬 스토리지에 다시 저장
+    localStorage.setItem('formData', JSON.stringify(updatedData));
+    alert('수정에 성공했습니다');
+  };
+
+  const getBoardList = () => {
+    const savedData = localStorage.getItem('formData');
+
+    return savedData ? JSON.parse(savedData) : [];
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Typography component="h1" variant="h5">
         {id ? '게시판 수정' : '게시판 등록'}
       </Typography>
-      <form onSubmit={onClickSubmitButton}>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        id="number"
+        type="number"
+        label="번호"
+        name="number"
+        value={formData.number !== null ? formData.number.toString() : ''}
+        onChange={handleChange}
+      />
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        id="title"
+        label="제목"
+        name="title"
+        value={formData.title}
+        onChange={handleChange}
+      />
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        name="content"
+        label="내용"
+        id="content"
+        multiline
+        rows={4}
+        value={formData.content}
+        onChange={handleChange}
+      />
+      {id ? (
+        <Button
+          type="submit"
           fullWidth
-          id="number"
-          type="number"
-          label="번호"
-          name="number"
-          value={formData.number !== null ? formData.number.toString() : ''}
-          onChange={handleChange}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
+          variant="contained"
+          color="primary"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={onClickModifyButton}
+        >
+          수정
+        </Button>
+      ) : (
+        <Button
+          type="submit"
           fullWidth
-          id="title"
-          label="제목"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="content"
-          label="내용"
-          id="content"
-          multiline
-          rows={4}
-          value={formData.content}
-          onChange={handleChange}
-        />
-        {id ? (
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            수정
-          </Button>
-        ) : (
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            등록
-          </Button>
-        )}
-      </form>
+          variant="contained"
+          color="primary"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={onClickSubmitButton}
+        >
+          등록
+        </Button>
+      )}
     </Container>
   );
 }
