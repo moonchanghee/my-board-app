@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, TextField, Box } from '@mui/material';
 import { FormDataType } from '../types/regist.type';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -41,7 +41,35 @@ export default function BasicTable() {
     <>
       <Typography component="h1" variant="h5">
         게시판 목록
+        <Button
+          sx={{ ml: 2 }}
+          style={{ width: '10px' }}
+          variant="contained"
+          color="primary"
+          onClick={(event) => onClickDeleteButton(event, row.number as number)}
+        >
+          등록
+        </Button>
       </Typography>
+      <Box display="flex" alignItems="center">
+        <TextField
+          label="제목"
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          sx={{ mr: 2 }} // 오른쪽에 여백 추가
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleButtonClick} // 버튼 클릭 핸들러
+          sx={{ height: '100%' }} // 버튼 높이를 텍스트 필드에 맞춤
+        >
+          클릭
+        </Button>
+      </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="simple table">
           <TableHead>

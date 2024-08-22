@@ -1,0 +1,16 @@
+{
+  "status": 200,
+  "message": "성공",
+  "data": [
+    {
+      "boardId": null,
+      "title": "제목1",
+      "content": "boardId가 없는 데이터"
+    },
+    {
+      "boardId": "2",
+      "title": "제목2",
+      "content": "내용2"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "status": 200,
+  "message": "성공",
+  "data": {
+    "boardId": "1",
+    "title": "제목1",
+    "content": "내용1"
+  }
+}
