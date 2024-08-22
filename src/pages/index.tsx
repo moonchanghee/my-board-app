@@ -51,7 +51,7 @@ export default function BasicTable() {
           등록
         </Button>
       </Typography>
-      <Box display="flex" alignItems="center">
+      {/* <Box display="flex" alignItems="center">
         <TextField
           label="제목"
           value={newTitle}
@@ -69,7 +69,7 @@ export default function BasicTable() {
         >
           클릭
         </Button>
-      </Box>
+      </Box> */}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="simple table">
           <TableHead>
