@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Typography, Button, TextField, Box } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import { FormDataType } from '../types/regist.type';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router-dom';
+import { getBoardList } from '../api/board';
 
 export default function BasicTable() {
   const [rows, setRows] = useState<FormDataType[]>([]);
@@ -16,6 +17,9 @@ export default function BasicTable() {
 
   useEffect(() => {
     const boardList = localStorage.getItem('formData');
+
+    getBoardList();
+
     if (boardList) {
       setRows(JSON.parse(boardList));
     }
@@ -41,7 +45,7 @@ export default function BasicTable() {
     <>
       <Typography component="h1" variant="h5">
         게시판 목록
-        <Button
+        {/* <Button
           sx={{ ml: 2 }}
           style={{ width: '10px' }}
           variant="contained"
@@ -49,7 +53,7 @@ export default function BasicTable() {
           onClick={(event) => onClickDeleteButton(event, row.number as number)}
         >
           등록
-        </Button>
+        </Button> */}
       </Typography>
       {/* <Box display="flex" alignItems="center">
         <TextField
