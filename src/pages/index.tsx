@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, Box, TextField } from '@mui/material';
 import { FormDataType } from '../types/regist.type';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,7 +13,9 @@ import { getBoardList } from '../api/board';
 
 export default function BasicTable() {
   const [rows, setRows] = useState<FormDataType[]>([]);
+
   const navigate = useNavigate();
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
     const boardList = localStorage.getItem('formData');
@@ -41,39 +43,47 @@ export default function BasicTable() {
     localStorage.setItem('formData', JSON.stringify(updatedRows));
   };
 
+  const onClickBoardRegistButton = () => {
+    navigate('/regist');
+  };
+
+  const onClickSearchButton = () => {
+    console.log('검색', title);
+  };
+
   return (
     <>
       <Typography component="h1" variant="h5">
         게시판 목록
-        {/* <Button
+        <Button
           sx={{ ml: 2 }}
           style={{ width: '10px' }}
           variant="contained"
           color="primary"
-          onClick={(event) => onClickDeleteButton(event, row.number as number)}
+          onClick={onClickBoardRegistButton}
         >
           등록
-        </Button> */}
+        </Button>
       </Typography>
-      {/* <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center">
         <TextField
           label="제목"
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           variant="outlined"
           fullWidth
           margin="normal"
-          sx={{ mr: 2 }} // 오른쪽에 여백 추가
+          sx={{ mr: 2 }}
         />
         <Button
           variant="contained"
           color="primary"
-          onClick={handleButtonClick} // 버튼 클릭 핸들러
-          sx={{ height: '100%' }} // 버튼 높이를 텍스트 필드에 맞춤
+          onClick={onClickSearchButton}
+          sx={{ height: '100%' }}
         >
-          클릭
+          검색
         </Button>
-      </Box> */}
+      </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="simple table">
           <TableHead>
