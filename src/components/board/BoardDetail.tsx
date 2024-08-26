@@ -3,6 +3,7 @@ import { TextField, Button, Container, Typography } from '@mui/material';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { formState } from '../../recoil/regist.recoil';
 import { FormDataType } from '../../types/regist.type';
+import { usePostBoard } from '../../queries/board';
 
 interface BoardRegistProps {
   id?: string;
@@ -10,7 +11,7 @@ interface BoardRegistProps {
 
 export default function BoardDetail({ id }: BoardRegistProps) {
   const [formData, setFormData] = useRecoilState(formState);
-
+  const { mutate: postBoard } = usePostBoard();
   useEffect(() => {
     if (id) {
       const boardList = localStorage.getItem('formData');
@@ -54,8 +55,8 @@ export default function BoardDetail({ id }: BoardRegistProps) {
 
     if (!isNumber) {
       dataList.push(formData);
+      postBoard(formData);
       localStorage.setItem('formData', JSON.stringify(dataList));
-      alert('등록 성공했습니다');
       resetForm();
       return;
     }
