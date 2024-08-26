@@ -1,6 +1,6 @@
 {
   "request": {
-    "method": "PATCH",
+    "method": "PUT",
     "urlPathPattern": "/api/updateBoard/(\\d+)"
   },
   "response": {

@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { formState } from '../../recoil/regist.recoil';
-import { FormDataType } from '../../types/regist.type';
-import { usePostBoard } from '../../queries/board';
+import { BoradDataType } from '../../types/board.type';
+import { usePostBoard, useUpdateBoard } from '../../queries/board';
 
 interface BoardRegistProps {
   id?: string;
@@ -12,6 +12,8 @@ interface BoardRegistProps {
 export default function BoardDetail({ id }: BoardRegistProps) {
   const [formData, setFormData] = useRecoilState(formState);
   const { mutate: postBoard } = usePostBoard();
+  const { mutate: updateBoard } = useUpdateBoard();
+
   useEffect(() => {
     if (id) {
       const boardList = localStorage.getItem('formData');
@@ -19,7 +21,7 @@ export default function BoardDetail({ id }: BoardRegistProps) {
       if (boardList) {
         const parsedData = JSON.parse(boardList);
         const foundItem = parsedData.find(
-          (item: FormDataType) => item.number === Number(id)
+          (item: BoradDataType) => item.number === Number(id)
         );
 
         if (foundItem) {
@@ -36,7 +38,7 @@ export default function BoardDetail({ id }: BoardRegistProps) {
   const resetForm = useResetRecoilState(formState);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData((prevState) => ({
+    setFormData((prevState: BoradDataType) => ({
       ...prevState,
       [name]: name === 'number' ? parseInt(value, 10) : value,
     }));
@@ -50,7 +52,7 @@ export default function BoardDetail({ id }: BoardRegistProps) {
 
     // 동일한 번호가 있는지 확인
     const isNumber = dataList.some(
-      (data: FormDataType) => data.number === formData.number
+      (data: BoradDataType) => data.number === formData.number
     );
 
     if (!isNumber) {
@@ -68,13 +70,16 @@ export default function BoardDetail({ id }: BoardRegistProps) {
     event.preventDefault();
 
     const dataList = getBoardList();
-    const updatedData = dataList.map((item: FormDataType) =>
+    const updatedData = dataList.map((item: BoradDataType) =>
       item.number === formData.number ? formData : item
     );
 
     // 수정된 데이터를 로컬 스토리지에 다시 저장
     localStorage.setItem('formData', JSON.stringify(updatedData));
-    alert('수정에 성공했습니다');
+
+    if (id) {
+      updateBoard({ id, data: formData });
+    }
   };
 
   const getBoardList = () => {
