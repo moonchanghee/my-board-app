@@ -1,4 +1,4 @@
-import { get, post, update } from '../index';
+import { get, post, update, del } from '../index';
 import { BoradDataType } from '../../types/board.type';
 
 export const getBoardList = async (search?: string) => {
@@ -25,6 +25,13 @@ export const updateBoard = async ({
 }) => {
   const url = `/updateBoard/${id}`;
   const response = await update({ url, data });
+
+  return response.data;
+};
+
+export const deleteBoard = async ({ id }: { id: number }) => {
+  const url = `/deleteBoard/${id}`;
+  const response = await del({ url });
 
   return response.data;
 };

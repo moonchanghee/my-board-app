@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router-dom';
-import { useGetBoardList } from '../queries/board';
+import { useGetBoardList, useDeleteBoard } from '../queries/board';
 
 export default function BasicTable() {
   const [rows, setRows] = useState<BoradDataType[]>([]);
@@ -18,6 +18,7 @@ export default function BasicTable() {
   const [title, setTitle] = useState('');
   const [searchParams, setSearchParams] = useState('');
   const { data: boardList } = useGetBoardList(searchParams);
+  const { mutate: deleteBoard } = useDeleteBoard();
 
   useEffect(() => {
     const boardList = localStorage.getItem('formData');
@@ -40,10 +41,10 @@ export default function BasicTable() {
     rowNumber: number
   ) => {
     event.stopPropagation();
-
     const updatedRows = rows.filter((row) => row.number !== rowNumber);
-    alert('삭제되었습니다');
     setRows(updatedRows);
+    deleteBoard({ id: rowNumber });
+
     localStorage.setItem('formData', JSON.stringify(updatedRows));
   };
 
