@@ -1,10 +1,15 @@
 import { get } from '../index';
 
-export const getBoardList = async () => {
+export const getBoardList = async (search?: string) => {
+  const url = '/boardList';
+
+  const params = search ? { search } : undefined;
+
   return await get({
-    url: '/hellow',
+    url,
+    params,
   }).then((response) => {
-    return console.log('response', response);
+    return response.data;
   });
 };
 

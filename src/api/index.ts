@@ -15,7 +15,9 @@ export const get = async ({ url = '/', params = {} }) => {
 export const post = async ({ url = '/', params = {}, data = {} }) => {
   return axios({
     method: 'post',
-    headers: { ...{ 'Content-Type': 'application/json' } },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     url: `${BASE_URL}${url}`,
     params,
     data,
@@ -25,7 +27,9 @@ export const post = async ({ url = '/', params = {}, data = {} }) => {
 export const update = async ({ url = '/', data = {} }) => {
   return axios({
     method: 'put',
-    headers: { ...{ 'Content-Type': 'application/json' } },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     url: `${BASE_URL}${url}`,
     data,
   }).then((response: AxiosResponse) => response);
@@ -34,7 +38,9 @@ export const update = async ({ url = '/', data = {} }) => {
 export const del = async ({ url = '/', data = {} }) => {
   return axios({
     method: 'delete',
-    headers: { ...{ 'Content-Type': 'application/json' } },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     url: `${BASE_URL}${url}`,
     data,
   }).then((response: AxiosResponse) => response);

@@ -9,23 +9,27 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router-dom';
-import { getBoardList } from '../api/board';
+import { useGetBoardList } from '../queries/board';
 
 export default function BasicTable() {
   const [rows, setRows] = useState<FormDataType[]>([]);
 
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
+  const [searchParams, setSearchParams] = useState('');
+  const { data: boardList } = useGetBoardList(searchParams);
 
   useEffect(() => {
     const boardList = localStorage.getItem('formData');
-
-    getBoardList();
 
     if (boardList) {
       setRows(JSON.parse(boardList));
     }
   }, []);
+
+  useEffect(() => {
+    console.log('boardList', boardList);
+  }, [boardList]);
 
   const onClickRow = (row: FormDataType) => {
     navigate(`/detail/${row.number}`);
@@ -48,7 +52,7 @@ export default function BasicTable() {
   };
 
   const onClickSearchButton = () => {
-    console.log('검색', title);
+    setSearchParams(title);
   };
 
   return (
