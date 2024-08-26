@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "urlPath": "/api/boardList"
+    "urlPath": "/api/board"
   },
   "response": {
     "status": 200,

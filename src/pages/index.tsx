@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Typography, Button, Box, TextField } from '@mui/material';
-import { FormDataType } from '../types/regist.type';
+import { BoradDataType } from '../types/board.type';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGetBoardList } from '../queries/board';
 
 export default function BasicTable() {
-  const [rows, setRows] = useState<FormDataType[]>([]);
+  const [rows, setRows] = useState<BoradDataType[]>([]);
 
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
@@ -31,7 +31,7 @@ export default function BasicTable() {
     console.log('boardList', boardList);
   }, [boardList]);
 
-  const onClickRow = (row: FormDataType) => {
+  const onClickRow = (row: BoradDataType) => {
     navigate(`/detail/${row.number}`);
   };
 
