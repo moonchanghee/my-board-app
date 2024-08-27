@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { formState } from '../../recoil/regist.recoil';
@@ -14,6 +15,18 @@ export default function BoardDetail({ id, data }: BoardRegistProps) {
   const { mutate: postBoard } = usePostBoard();
   const { mutate: updateBoard } = useUpdateBoard();
   const resetForm = useResetRecoilState(formState);
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        title: data.title,
+        content: data.content,
+      });
+      return;
+    }
+
+    resetForm();
+  }, [data]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -71,7 +84,7 @@ export default function BoardDetail({ id, data }: BoardRegistProps) {
         id="title"
         label="제목"
         name="title"
-        value={data?.title || formData.title}
+        value={formData.title}
         onChange={handleChange}
       />
       <TextField
@@ -84,7 +97,7 @@ export default function BoardDetail({ id, data }: BoardRegistProps) {
         id="content"
         multiline
         rows={4}
-        value={data?.content || formData.content}
+        value={formData.content}
         onChange={handleChange}
       />
       {id ? (
