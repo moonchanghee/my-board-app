@@ -37,6 +37,7 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1",
-    "wiremock": "^3.9.0"
+    "wiremock": "^3.9.0",
+    "@types/navermaps": "3.0.13"
   }
 }
