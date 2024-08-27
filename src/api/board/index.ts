@@ -6,7 +6,7 @@ export const getBoardList = async (search?: string) => {
   const params = search ? { search } : undefined;
   const response = await get({ url, params });
 
-  return response.data;
+  return response.data.data;
 };
 
 export const postBoard = async (data: BoradDataType) => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Typography, Button, Box, TextField } from '@mui/material';
 import { BoradDataType } from '../types/board.type';
 import Table from '@mui/material/Table';
@@ -12,25 +12,11 @@ import { useNavigate } from 'react-router-dom';
 import { useGetBoardList, useDeleteBoard } from '../queries/board';
 
 export default function BasicTable() {
-  const [rows, setRows] = useState<BoradDataType[]>([]);
-
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [searchParams, setSearchParams] = useState('');
-  const { data: boardList } = useGetBoardList(searchParams);
+  const { data: boardList = [] } = useGetBoardList(searchParams);
   const { mutate: deleteBoard } = useDeleteBoard();
-
-  useEffect(() => {
-    const boardList = localStorage.getItem('formData');
-
-    if (boardList) {
-      setRows(JSON.parse(boardList));
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log('boardList', boardList);
-  }, [boardList]);
 
   const onClickRow = (row: BoradDataType) => {
     navigate(`/detail/${row.number}`);
@@ -41,11 +27,7 @@ export default function BasicTable() {
     rowNumber: number
   ) => {
     event.stopPropagation();
-    const updatedRows = rows.filter((row) => row.number !== rowNumber);
-    setRows(updatedRows);
     deleteBoard({ id: rowNumber });
-
-    localStorage.setItem('formData', JSON.stringify(updatedRows));
   };
 
   const onClickBoardRegistButton = () => {
@@ -100,7 +82,7 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => (
+            {boardList.map((row: BoradDataType, index: number) => (
               <TableRow
                 key={index}
                 sx={{
