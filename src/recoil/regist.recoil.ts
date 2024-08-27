@@ -1,11 +1,11 @@
 import { atom } from 'recoil';
-import { BoradDataType } from '../types/board.type';
-const initialFormData: BoradDataType = {
+import { BoardUpdateType } from '../types/board.type';
+const initialFormData: BoardUpdateType = {
   title: '',
   content: '',
 };
 
-export const formState = atom<BoradDataType>({
+export const formState = atom<BoardUpdateType>({
   key: 'formDataAtom',
   default: initialFormData,
 });

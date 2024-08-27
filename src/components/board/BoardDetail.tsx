@@ -1,7 +1,7 @@
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { formState } from '../../recoil/regist.recoil';
-import { BoradDataType } from '../../types/board.type';
+import { BoardUpdateType } from '../../types/board.type';
 import { usePostBoard, useUpdateBoard } from '../../queries/board';
 
 interface BoardRegistProps {
@@ -15,7 +15,7 @@ export default function BoardDetail({ id }: BoardRegistProps) {
   const resetForm = useResetRecoilState(formState);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData((prevState: BoradDataType) => ({
+    setFormData((prevState: BoardUpdateType) => ({
       ...prevState,
       [name]: value,
     }));

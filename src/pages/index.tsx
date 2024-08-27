@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Typography, Button, Box, TextField } from '@mui/material';
-import { BoradDataType } from '../types/board.type';
+import { BoardDataType } from '../types/board.type';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,7 +18,7 @@ export default function BasicTable() {
   const { data: boardList = [] } = useGetBoardList(searchParams);
   const { mutate: deleteBoard } = useDeleteBoard();
 
-  const onClickRow = (row: BoradDataType) => {
+  const onClickRow = (row: BoardDataType) => {
     navigate(`/detail/${row.number}`);
   };
 
@@ -82,7 +82,7 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {boardList.map((row: BoradDataType, index: number) => (
+            {boardList.map((row: BoardDataType, index: number) => (
               <TableRow
                 key={index}
                 sx={{

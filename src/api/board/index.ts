@@ -1,5 +1,5 @@
 import { get, post, update, del } from '../index';
-import { BoradDataType } from '../../types/board.type';
+import { BoardUpdateType } from '../../types/board.type';
 
 export const getBoardList = async (search?: string) => {
   const url = '/board';
@@ -9,7 +9,7 @@ export const getBoardList = async (search?: string) => {
   return response.data.data;
 };
 
-export const postBoard = async (data: BoradDataType) => {
+export const postBoard = async (data: BoardUpdateType) => {
   const url = '/createBoard';
   const response = await post({ url, data });
 
@@ -21,7 +21,7 @@ export const updateBoard = async ({
   data,
 }: {
   id: string;
-  data: BoradDataType;
+  data: BoardUpdateType;
 }) => {
   const url = `/updateBoard/${id}`;
   const response = await update({ url, data });
