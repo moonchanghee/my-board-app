@@ -7,12 +7,24 @@ import {
   getBoardDetail,
 } from '../api/board';
 import { useNavigate } from 'react-router-dom';
+import { BoardDataType } from '../domain/board.type';
 
 export const useGetBoardList = (params: string) => {
   return useQuery({
     queryKey: ['boardList', params],
-    queryFn: () => getBoardList(params),
-    // enabled: !!params,
+    queryFn: async () => {
+      const response = await getBoardList(params);
+
+      let list: BoardDataType[] = [];
+
+      list = response.map((row) => ({
+        number: row?.number,
+        title: row?.title1,
+        content: row?.content1,
+      }));
+
+      return list;
+    },
   });
 };
 
