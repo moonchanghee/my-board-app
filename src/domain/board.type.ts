@@ -4,4 +4,3 @@ export interface BoardDataType {
   content: string;
 }
 
-export type BoardUpdateType = Omit<BoardDataType, 'number'>;

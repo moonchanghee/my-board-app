@@ -1,15 +1,18 @@
 import axios, { AxiosResponse } from 'axios';
 import { BASE_URL } from '../constant/ga';
 
-export const get = async ({ url = '/', params = {} }) => {
-  return axios({
-    method: 'get',
+export const get = async <T = any, R = any>({
+  url = '/',
+  params = {},
+}): Promise<R> => {
+  const response = await axios.get<T, R>(`${BASE_URL}${url}`, {
     headers: {
       'Content-Type': 'application/json',
     },
-    url: `${BASE_URL}${url}`,
     params,
-  }).then((response: AxiosResponse) => response);
+  });
+
+  return response;
 };
 
 export const post = async ({ url = '/', params = {}, data = {} }) => {

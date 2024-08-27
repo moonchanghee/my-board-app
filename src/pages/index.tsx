@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Typography, Button, Box, TextField } from '@mui/material';
-import { BoardDataType } from '../types/board.type';
+import { BoardDataType } from '../domain/board.type';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -82,7 +82,7 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {boardList.map((row: BoardDataType, index: number) => (
+            {boardList.map((row, index: number) => (
               <TableRow
                 key={index}
                 sx={{

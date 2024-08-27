@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { formState } from '../../recoil/regist.recoil';
-import { BoardUpdateType, BoardDataType } from '../../types/board.type';
+import { BoardUpdateType, BoardDataType } from '../../domain/board.type';
 import { usePostBoard, useUpdateBoard } from '../../queries/board';
 
 interface BoardRegistProps {

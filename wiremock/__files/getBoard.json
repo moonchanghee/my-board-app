@@ -3,14 +3,14 @@
   "message": "성공",
   "data": [
     {
-      "number": "1",
-      "title": "제목1",
-      "content": "내용1"
+      "number1": "1",
+      "title1": "제목1",
+      "content1": "내용1"
     },
     {
-      "number": "2",
-      "title": "제목2",
-      "content": "내용2"
+      "number1": "2",
+      "title1": "제목2",
+      "content1": "내용2"
     }
   ]
 }

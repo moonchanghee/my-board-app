@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { BoardUpdateType } from '../types/board.type';
+import { BoardUpdateType } from '../domain/board.type';
 const initialFormData: BoardUpdateType = {
   title: '',
   content: '',

@@ -1,10 +1,17 @@
 import { get, post, update, del } from '../index';
-import { BoardUpdateType } from '../../types/board.type';
+
+import { BoardUpdateType } from '../../domain/req/boardUpdate.req.type';
+import { BoardListReqDto } from '../../domain/req/boardList.req.type';
+import { BoardListResAxiosApiResponse } from '../../domain/res/boardList.res.type';
 
 export const getBoardList = async (search?: string) => {
   const url = '/board';
-  const params = search ? { search } : undefined;
-  const response = await get({ url, params });
+  const params: BoardListReqDto | undefined = search ? { search } : undefined;
+
+  const response = await get<BoardListReqDto, BoardListResAxiosApiResponse>({
+    url,
+    params,
+  });
 
   return response.data.data;
 };
