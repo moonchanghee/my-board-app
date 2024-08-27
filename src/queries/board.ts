@@ -14,7 +14,7 @@ export const useGetBoardList = (params: string) => {
     queryKey: ['boardList', params],
     queryFn: async () => {
       const response = await getBoardList(params);
-
+      //수정
       let list: BoardDataType[] = [];
 
       list = response.map((row) => ({
