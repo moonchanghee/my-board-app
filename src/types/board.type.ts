@@ -1,5 +1,5 @@
 export interface BoradDataType {
-  number: number | null;
+  number?: number;
   title: string;
   content: string;
 }

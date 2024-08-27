@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { formState } from '../../recoil/regist.recoil';
@@ -13,23 +12,12 @@ export default function BoardDetail({ id }: BoardRegistProps) {
   const [formData, setFormData] = useRecoilState(formState);
   const { mutate: postBoard } = usePostBoard();
   const { mutate: updateBoard } = useUpdateBoard();
-
-  useEffect(() => {
-    if (id) {
-      setFormData({
-        number: 1,
-        title: 'title',
-        content: 'content',
-      });
-    }
-  }, [id]);
-
   const resetForm = useResetRecoilState(formState);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevState: BoradDataType) => ({
       ...prevState,
-      [name]: name === 'number' ? parseInt(value, 10) : value,
+      [name]: value,
     }));
   };
 
@@ -43,6 +31,7 @@ export default function BoardDetail({ id }: BoardRegistProps) {
 
   const onClickModifyButton = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
     if (id) {
       updateBoard({ id, data: formData });
     }
@@ -53,18 +42,22 @@ export default function BoardDetail({ id }: BoardRegistProps) {
       <Typography component="h1" variant="h5">
         {id ? '게시판 수정' : '게시판 등록'}
       </Typography>
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        id="number"
-        type="number"
-        label="번호"
-        name="number"
-        value={formData.number !== null ? formData.number.toString() : ''}
-        onChange={handleChange}
-      />
+      {id ? (
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="number"
+          type="number"
+          label="번호"
+          name="number"
+          value={id}
+        />
+      ) : (
+        ''
+      )}
+
       <TextField
         variant="outlined"
         margin="normal"
