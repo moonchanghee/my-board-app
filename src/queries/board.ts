@@ -4,6 +4,7 @@ import {
   postBoard,
   updateBoard,
   deleteBoard,
+  getBoardDetail,
 } from '../api/board';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +13,13 @@ export const useGetBoardList = (params: string) => {
     queryKey: ['boardList', params],
     queryFn: () => getBoardList(params),
     // enabled: !!params,
+  });
+};
+
+export const useGetBoardDetail = (id: string) => {
+  return useQuery({
+    queryKey: ['boardDetail', id],
+    queryFn: () => getBoardDetail(id),
   });
 };
 

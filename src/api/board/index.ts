@@ -35,3 +35,10 @@ export const deleteBoard = async ({ id }: { id: number }) => {
 
   return response.data;
 };
+
+export const getBoardDetail = async (id: string) => {
+  const url = `/searchBoardDetail/${id}`;
+  const response = await get({ url });
+
+  return response.data.data;
+};

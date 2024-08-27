@@ -1,18 +1,20 @@
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { formState } from '../../recoil/regist.recoil';
-import { BoardUpdateType } from '../../types/board.type';
+import { BoardUpdateType, BoardDataType } from '../../types/board.type';
 import { usePostBoard, useUpdateBoard } from '../../queries/board';
 
 interface BoardRegistProps {
   id?: string;
+  data?: BoardDataType;
 }
 
-export default function BoardDetail({ id }: BoardRegistProps) {
+export default function BoardDetail({ id, data }: BoardRegistProps) {
   const [formData, setFormData] = useRecoilState(formState);
   const { mutate: postBoard } = usePostBoard();
   const { mutate: updateBoard } = useUpdateBoard();
   const resetForm = useResetRecoilState(formState);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevState: BoardUpdateType) => ({
@@ -32,9 +34,11 @@ export default function BoardDetail({ id }: BoardRegistProps) {
   const onClickModifyButton = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (id) {
-      updateBoard({ id, data: formData });
+    if (!id) {
+      return;
     }
+
+    updateBoard({ id, data: formData });
   };
 
   return (
@@ -52,6 +56,7 @@ export default function BoardDetail({ id }: BoardRegistProps) {
           type="number"
           label="번호"
           name="number"
+          disabled
           value={id}
         />
       ) : (
@@ -66,7 +71,7 @@ export default function BoardDetail({ id }: BoardRegistProps) {
         id="title"
         label="제목"
         name="title"
-        value={formData.title}
+        value={data?.title || formData.title}
         onChange={handleChange}
       />
       <TextField
@@ -79,7 +84,7 @@ export default function BoardDetail({ id }: BoardRegistProps) {
         id="content"
         multiline
         rows={4}
-        value={formData.content}
+        value={data?.content || formData.content}
         onChange={handleChange}
       />
       {id ? (
